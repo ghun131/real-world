@@ -8,7 +8,8 @@
     "start": "node app.js"
   },
   "engine": {
-    "node": "v8.12.0"
+    "node": "v8.12.0",
+    "npm": "6.4.1"
   },
   "keywords": [],
   "author": "",
