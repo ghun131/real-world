@@ -54,13 +54,6 @@ app.use('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'))
 })
 
-// app.use('*', async function (req, res) {
-//     const indexFile = fs.readFileSync(path.join(__dirname, 'dist/index.html')).toString()
-//     res.writeHead(200, {
-//         'Content-Type': 'text/html; charset=utf-8'
-//     })
-//     res.end(indexFile)
-// });
 require('./prod')(app);
 
 app.listen(3000 || process.env.PORT, "0.0.0.0", () => console.log('Listening...'));
