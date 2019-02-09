@@ -1,0 +1,4 @@
+{
+    "jwtKey": "real-world-jwtKey",
+    "db": "simple-blog-db"
+}

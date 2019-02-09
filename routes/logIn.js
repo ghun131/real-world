@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../modal/User');
 const Post = require('../modal/Post')
 const bcrypt = require('bcrypt');
-const config = require('../config');
+const config = require('config');
 
 async function findUserPosts(email, package, res) {
   try {
@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
             message: 'email or password invalid'
           })
         } else {
-          let token = jwt.sign({ email: result[0].email }, config.secret, { expiresIn: '24h' })
+          let token = jwt.sign({ email: result[0].email }, config.get('jwtKey'), { expiresIn: '24h' })
           req.session.token = token;
           req.session.username = result[0].username;
           req.session.email = email;

@@ -1,3 +1,4 @@
+const config = require('config');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -13,6 +14,12 @@ const tags = require('./routes/tags');
 const express = require('express');
 const app = express();
 const session = require('express-session');
+
+if (!config.get('jwtKey')) {
+    console.error('FATAL ERROR: jwtKey is not defined');
+    process.exit(1);
+}
+
 mongoose.connect('mongodb://hung131:abc123@ds151383.mlab.com:51383/simple-blog-db');
 
 app.use(bodyParser.json());

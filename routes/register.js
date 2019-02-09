@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../modal/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
+const config = require('config');
 
 router.post('/', (req, res, next) => {
     const {email, username, password} = req.body.payload
@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
               let salt = bcrypt.genSaltSync(10);
               let hash = bcrypt.hashSync(password, salt);
 
-              let token = jwt.sign({ email: email }, config.secret, { expiresIn: '24h' })
+              let token = jwt.sign({ email: email }, config.get('jwtKey'), { expiresIn: '24h' })
               userData.password = hash;
             
               User.create(userData, (error, user) => {
