@@ -1,4 +1,4 @@
 {
     "jwtKey": "",
-    "db": "simple-blog-db"
+    "db": "simple_blog_db"
 }
