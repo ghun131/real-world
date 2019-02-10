@@ -109,9 +109,9 @@ router.post("/feed", (req, res) => {
 
   async function getPostsFromAuthorUserFollow() {
     try {
-      const posts = await Post.find({
-        author: following
-      })
+      const posts = await Post
+      .find({ author: following })
+      .sort({ time: -1 })
 
       res.send(posts);
     } catch(err) {
