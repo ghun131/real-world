@@ -12171,9 +12171,9 @@ class UserContainer extends unstated__WEBPACK_IMPORTED_MODULE_1__["Container"] {
         axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/login', {
           user
         }).then(res => {
-          console.log('Log in', res.data);
+          console.log('Log in', res.data.success);
           this.setState({
-            isLogin: res.data.success,
+            isLogin: true,
             message: res.data.message
           });
 
@@ -14686,7 +14686,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "feed-toggle"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
       className: "nav nav-pills outline-active"
-    }, userThings.state.isLogin ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    }, localStorage.getItem("author") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "nav-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
       exact: true,
@@ -14932,9 +14932,7 @@ class PostContainer extends unstated__WEBPACK_IMPORTED_MODULE_1__["Container"] {
     });
 
     _defineProperty(this, "likePost", (id, title) => {
-      console.log(history);
-
-      if (this.state.isLogin) {
+      if (this.state.isLogin || localStorage.getItem("author")) {
         let payload = {
           author: localStorage.getItem("author"),
           title: title
@@ -15108,7 +15106,7 @@ class ArticlePreview extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       className: "author"
     }, this.props.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "date"
-    }, _containers_PostContainer__WEBPACK_IMPORTED_MODULE_2__["default"].displayTime(this.props.time))), userThings.state.isLogin ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, _containers_PostContainer__WEBPACK_IMPORTED_MODULE_2__["default"].displayTime(this.props.time))), localStorage.getItem("author") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: loveArt[0] ? liked : disliked,
       onClick: e => this.handleLike(e, postThings.likePost, this.props._id, this.props.title)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -15579,10 +15577,10 @@ class Profile extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "user-img"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, postThings.state.author[0].username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, postThings.state.author[0].biography), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-outline-secondary action-btn",
-      onClick: e => this.handleFollow(e, userThings.followUser)
+      onClick: e => this.handleFollow(e, postThings.followUser)
     }, this.checkProfile(this.props.location.pathname) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-gear-a"
-    }), "\xA0 Edit Profile Settings") : [userThings.state.following ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }), "\xA0 Edit Profile Settings") : [postThings.state.following ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "unfollow"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-plus-round"
