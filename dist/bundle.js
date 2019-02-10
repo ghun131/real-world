@@ -15557,6 +15557,14 @@ class Profile extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     _defineProperty(this, "checkProfile", pathname => {
       return pathname.includes(localStorage.getItem("author"));
     });
+
+    _defineProperty(this, "checkFollowing", username => {
+      if (localStorage.getItem("following")) {
+        return localStorage.getItem("following").includes(username);
+      } else {
+        return false;
+      }
+    });
   }
 
   render() {
@@ -15580,7 +15588,7 @@ class Profile extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       onClick: e => this.handleFollow(e, postThings.followUser)
     }, this.checkProfile(this.props.location.pathname) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-gear-a"
-    }), "\xA0 Edit Profile Settings") : [postThings.state.following ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }), "\xA0 Edit Profile Settings") : [this.checkFollowing(postThings.state.author[0].username) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "unfollow"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-plus-round"
