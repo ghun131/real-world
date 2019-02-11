@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../modal/Post');
+const Post = require('../model/Post');
 const middleware = require('../middleware');
 
 router.post('/', middleware.checkToken, (req, res) => {
-  const { author, title, content, email, tags, avaUrl } = req.body.data;
+  const { author, title, content, email, tags, avaUrl, description } = req.body.data;
 
   async function createPost() {
     let today = new Date();
@@ -12,6 +12,7 @@ router.post('/', middleware.checkToken, (req, res) => {
       author,
       title,
       email,
+      description,
       content,
       tags,
       avaUrl,

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../modal/Post');
-const User = require('../modal/User');
-const Comment = require('../modal/Comment');
+const Post = require('../model/Post');
+const User = require('../model/User');
+const Comment = require('../model/Comment');
 const middleware = require('../middleware');
 
 router.get('/:id', (req, res) => {

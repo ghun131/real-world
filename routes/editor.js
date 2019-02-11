@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../modal/Post');
+const Post = require('../model/Post');
 const middleware = require('../middleware');
 
 router.put('/:id', middleware.checkToken, (req, res) => {
