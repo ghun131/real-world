@@ -14713,22 +14713,28 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       render: () => postThings.state.data[0] ? postThings.state.data.map(p => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticlePreview__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
         key: p._id
       }, p))) : [localStorage.getItem("following") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: "loading"
+        key: "loading",
+        className: "article-preview"
       }, "Loading articles...") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: "no-articles"
+        key: "no-articles",
+        className: "article-preview"
       }, "No articles are here...yet")]
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
       exact: true,
       path: "/",
       render: () => postThings.state.data[0] ? postThings.state.data.map(p => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticlePreview__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
         key: p._id
-      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading articles...")
+      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "article-preview"
+      }, "Loading articles...")
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
       exact: true,
       path: "/tag/:tagName",
       render: () => postThings.state.data[0] ? postThings.state.data.map(p => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticlePreview__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
         key: p._id
-      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading articles...")
+      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "article-preview"
+      }, "Loading articles...")
     }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col-md-3"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -14829,6 +14835,7 @@ class PostContainer extends unstated__WEBPACK_IMPORTED_MODULE_1__["Container"] {
         this.setState({
           data: res.data.posts,
           tags: res.data.tags,
+          currentPageNum: 1,
           pageNums
         });
       }).catch(error => console.log(error));
@@ -14846,12 +14853,18 @@ class PostContainer extends unstated__WEBPACK_IMPORTED_MODULE_1__["Container"] {
     });
 
     _defineProperty(this, "getFeed", () => {
-      const payload = {
-        payload: localStorage.getItem("following").split(",")
+      let payload = {
+        payload: []
       };
+
+      if (localStorage.getItem("following")) {
+        payload.payload = localStorage.getItem("following").split(",");
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/api/posts/feed", payload).then(res => {
         this.setState({
-          data: res.data
+          data: res.data,
+          pageNums: []
         });
       }).catch(error => console.log(error));
     });
@@ -15586,7 +15599,9 @@ class Profile extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, postThings.state.author[0].username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, postThings.state.author[0].biography), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-outline-secondary action-btn",
       onClick: e => this.handleFollow(e, postThings.followUser)
-    }, this.checkProfile(this.props.location.pathname) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, this.checkProfile(this.props.location.pathname) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: `/settings/${localStorage.getItem("author")}`
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-gear-a"
     }), "\xA0 Edit Profile Settings") : [this.checkFollowing(postThings.state.author[0].username) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "unfollow"
@@ -15624,13 +15639,17 @@ class Profile extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       key: "userPosts",
       render: () => postThings.state.data[0] ? postThings.state.data.map(p => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticlePreview__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
         key: p._id
-      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading articles...")
+      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "article-preview"
+      }, "Loading articles...")
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
       path: "/profile/:username/favourites",
       key: "favourites",
       render: () => postThings.state.data[0] ? postThings.state.data.map(p => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticlePreview__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
         key: p._id
-      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading articles...")
+      }, p))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "article-preview"
+      }, "Loading articles...")
     })))))));
   }
 
@@ -15724,7 +15743,7 @@ class Article extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       to: [_containers_PostContainer__WEBPACK_IMPORTED_MODULE_3__["default"], _containers_UserContainer__WEBPACK_IMPORTED_MODULE_4__["default"]]
     }, (postThings, userThings) => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "article-page"
-    }, console.log('article component', postThings), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, console.log('article component', postThings.state), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "banner"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container"
@@ -15749,7 +15768,7 @@ class Article extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }), "\xA0 Edit Article") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn btn-sm btn-outline-secondary",
       onClick: e => this.handleFollow(e, postThings.followUser, postThings.state.author[0].username)
-    }, postThings.state.author[0] ? [this.checkProfile(postThings.state.data[0].author) || userThings.state.following ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, postThings.state.author[0] ? [this.checkProfile(postThings.state.data[0].author) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "unfollow"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "ion-plus-round"
