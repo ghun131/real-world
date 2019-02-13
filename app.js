@@ -43,7 +43,7 @@ app.use('/api/login', logIn);
 app.use('/api/logout', logOut);
 
 // Handle one article
-app.use('/article', article)
+app.use('/api/article', article)
 
 // Editor page
 app.use('/editor', editor)
@@ -52,7 +52,7 @@ app.use('/editor', editor)
 app.use('/api/newpost', newPost);
 
 // GET articles for a tag
-app.use('/tag', tags);
+app.use('/api/tag', tags);
 
 //POST method finds all posts of one author
 app.use('/profile', profile);
